@@ -14,6 +14,11 @@ const users = [
         firstname: 'Maria',
         lastname: 'Musterfrau',
     },
+    {
+        id: 4,
+        firstname: 'James',
+        lastname: 'Bond',
+    },
 ]
 
 export const getUsers = (req, res) => {
