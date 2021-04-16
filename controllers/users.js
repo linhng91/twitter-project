@@ -62,3 +62,14 @@ export const getMessageByUserId = async (req, res) => {
         res.status(500).json(err.message);
     }
 };
+
+export const getRandomUser = async (req, res) => {
+    try {
+        //const user = users.find(user => user.id === Number(id));
+        const {rows} = await pool.query('SELECT * FROM users ORDER BY RANDOM() LIMIT 1')
+
+        res.json(rows[0]);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+};
