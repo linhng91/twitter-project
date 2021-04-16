@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 import morgan from 'morgan';
+import 'dotenv/config.js';
 import usersRouter from './routes/users.js';
 import messagesRouter from './routes/messages.js';
 

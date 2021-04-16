@@ -1,3 +1,4 @@
+import pool from '../db/pg.js'
 
 const messages = [
     {
@@ -32,20 +33,29 @@ const messages = [
     }
 ]
 
-export const getMessages = (req, res) => {
-    res.json(messages);
+export const getMessages = async (req, res) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM messages;');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
 };
 
 export const postMessages = (req, res) => {
     res.send('still working on the rest');
 };
 
-export const getSingleMessages = (req, res) => {
-    const {id} = req.params;
-    console.log(id);
-    const message = messages.find(message => message.id === Number(id));
+export const getSingleMessages = async (req, res) => {
+    try {
+        const {id} = req.params;
+        console.log(id);
+        //const user = users.find(user => user.id === Number(id));
+        const {rows} = await pool.query('SELECT * FROM messages WHERE messageID=$1', [id])
 
-
-    res.json(message);
+        res.json(rows[0]);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
 };
 
